@@ -6,7 +6,7 @@ import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import MusicPlayer from "./MusicPlayer";
 
 const defaultSrc =
-  "http://m701.music.126.net/20220322210851/94fdca391ce74fdd527ba2e50bde68a6/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5537344714/ef40/ccc5/5f7d/016d259d584e04f7df47dfbd2a2cc2d9.mp3";
+  "http://m801.music.126.net/20220323124214/903cb242255d2735058e3f4353300b59/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5537344714/ef40/ccc5/5f7d/016d259d584e04f7df47dfbd2a2cc2d9.mp3";
 
 const initialplayerState: Music = {
   duration: 0,
