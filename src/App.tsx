@@ -15,7 +15,14 @@ const initialplayerState: Music = {
   id: -1,
 };
 
-function App({ src, picUrl, id = 0, playEvent, pauseEvent }: Player) {
+function App({
+  src,
+  picUrl,
+  id = 0,
+  playEvent,
+  pauseEvent,
+  autoPlay = false,
+}: Player) {
   const audioRef = useRef<HTMLAudioElement>();
   const intervalRef = useRef<number>(-1);
 
@@ -57,10 +64,10 @@ function App({ src, picUrl, id = 0, playEvent, pauseEvent }: Player) {
     if (id !== playerState.id) {
       playerDispatch({
         type: "initial",
-        payload: { currentTime: 0, duration, id, playing: false },
+        payload: { currentTime: 0, duration, id, playing: autoPlay },
       });
     }
-  }, [id, playerState.id]);
+  }, [autoPlay, id, playerState.id]);
 
   const onPlay = useCallback(() => {
     playerDispatch({
@@ -85,7 +92,7 @@ function App({ src, picUrl, id = 0, playEvent, pauseEvent }: Player) {
         <audio
           src={src || defaultSrc}
           controls
-          autoPlay={false}
+          autoPlay={autoPlay}
           ref={(ref) => {
             if (ref) {
               audioRef.current = ref;

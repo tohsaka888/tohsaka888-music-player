@@ -31,6 +31,6 @@ export type Player = {
   prevPlayEvent?: NextOrPrevPlayEvent;
   pauseEvent?: PauseEvent;
   playEvent?: PlayEvent;
-  autoPlay?: true;
+  autoPlay?: boolean;
   id: number;
 };
