@@ -9,7 +9,12 @@ export const PlayerContainer = styled(Flex)``;
 
 export const MusicInfoArea = styled(Flex)``;
 
+export const TimeInfoArea = styled(Flex)`
+
+` 
+
 export const CoverImage = styled.img`
   width: 60px;
   height: 60px;
+  margin-right: 8px;
 `;

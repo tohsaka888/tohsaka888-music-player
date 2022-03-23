@@ -1,12 +1,16 @@
 import Slider from "rc-slider";
-import React, { useContext, useState } from "react";
+import React, { MutableRefObject, useContext, useState } from "react";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import { CoverImage, PlayerContainer } from "./styles/index.style";
 import { Player } from "./types";
 
 const defaultPicUrl = `https://www.esp-4u.com/d/uploads/2021-08-29/bedcafc472655fe2919cc6b20d68bf01.jpeg`;
 
-function MusicPlayer({ picUrl, src, id }: Player) {
+function MusicPlayer({
+  picUrl,
+  src,
+  audioRef,
+}: Player & { audioRef: MutableRefObject<HTMLAudioElement | undefined> }) {
   const musicProps = useContext(PlayerContext);
   const playerDispatch = useContext(PlayerDispatchContext);
   const [sliderValue, setSliderValue] = useState<number>(-1);
@@ -15,12 +19,12 @@ function MusicPlayer({ picUrl, src, id }: Player) {
   const duration = musicProps?.duration;
 
   const onAfterChange = (value: number | number[]) => {
-    setSliderValue(() => {
-      console.log('ok')
-      return -1
-    });
+    setSliderValue(-1);
     if (typeof value === "number" && playerDispatch) {
       playerDispatch({ type: "playing", payload: value });
+      if (audioRef.current) {
+        audioRef.current.currentTime = value;
+      }
     }
   };
 
@@ -41,6 +45,7 @@ function MusicPlayer({ picUrl, src, id }: Player) {
         onAfterChange={onAfterChange}
         onChange={onChange}
       />
+      
     </PlayerContainer>
   );
 }

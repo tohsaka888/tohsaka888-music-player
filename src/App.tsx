@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useRef, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useRef } from "react";
 import "./App.css";
 import { Music, MusicActionType, Player } from "./types";
 import "rc-slider/assets/index.css";
@@ -6,26 +6,28 @@ import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import MusicPlayer from "./MusicPlayer";
 
 const defaultSrc =
-  "http://m701.music.126.net/20220322154342/62107709effc0bf53e96ec7f0dcbd475/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5537344714/ef40/ccc5/5f7d/016d259d584e04f7df47dfbd2a2cc2d9.mp3";
+  "http://m701.music.126.net/20220322210851/94fdca391ce74fdd527ba2e50bde68a6/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5537344714/ef40/ccc5/5f7d/016d259d584e04f7df47dfbd2a2cc2d9.mp3";
 
 const initialplayerState: Music = {
   duration: 0,
   currentTime: 0,
-  playing: true,
+  playing: false,
   id: -1,
 };
 
-function App({ src, picUrl, id = -1 }: Player) {
+function App({ src, picUrl, id = 0, playEvent, pauseEvent }: Player) {
   const audioRef = useRef<HTMLAudioElement>();
-  const [intervalId, setIntervalId] = useState<number>(-1);
+  const intervalRef = useRef<number>(-1);
 
   const playerReducer = useCallback(
     (preState: Music, action: MusicActionType) => {
       switch (action.type) {
         case "playing":
           return { ...preState, currentTime: action.payload };
-        case "isPlaying":
-          return { ...preState, playing: !preState.playing };
+        case "play":
+          return { ...preState, playing: true };
+        case "pause":
+          return { ...preState, playing: false };
         case "initial":
           return action.payload;
       }
@@ -38,31 +40,44 @@ function App({ src, picUrl, id = -1 }: Player) {
     initialplayerState
   );
 
-  const onPlay = useCallback(() => {
-    const duration = audioRef.current?.duration || 0;
+  useEffect(() => {
+    if (playerState.playing) {
+      const callback = () => {
+        const currentTime = audioRef.current?.currentTime || 0;
+        playerDispatch({ type: "playing", payload: currentTime });
+      };
+      intervalRef.current = window.setInterval(callback, 300);
+    } else {
+      window.clearInterval(intervalRef.current);
+    }
+  }, [playerState.playing]);
 
-    if (id === -1) {
+  const onCanplay = useCallback(() => {
+    const duration = audioRef.current?.duration || 0;
+    if (id !== playerState.id) {
       playerDispatch({
         type: "initial",
-        payload: { currentTime: 0, duration, id, playing: true },
-      });
-    } else {
-      playerDispatch({
-        type: "isPlaying",
-        payload: undefined,
+        payload: { currentTime: 0, duration, id, playing: false },
       });
     }
-    const callback = () => {
-      const currentTime = audioRef.current?.currentTime || 0;
-      playerDispatch({ type: "playing", payload: currentTime });
-    };
-    setIntervalId(() => window.setInterval(callback, 300));
-  }, [id]);
+  }, [id, playerState.id]);
+
+  const onPlay = useCallback(() => {
+    playerDispatch({
+      type: "play",
+      payload: undefined,
+    });
+    if (playEvent) {
+      playEvent();
+    }
+  }, [playEvent]);
 
   const onPause = useCallback(() => {
-    playerDispatch({ type: "isPlaying", payload: undefined });
-    window.clearInterval(intervalId);
-  }, [intervalId]);
+    playerDispatch({ type: "pause", payload: undefined });
+    if (pauseEvent) {
+      pauseEvent();
+    }
+  }, [pauseEvent]);
 
   return (
     <PlayerContext.Provider value={playerState}>
@@ -78,8 +93,9 @@ function App({ src, picUrl, id = -1 }: Player) {
           }}
           onPlay={onPlay}
           onPause={onPause}
+          onCanPlay={onCanplay}
         />
-        <MusicPlayer picUrl={picUrl} id={id} />
+        <MusicPlayer picUrl={picUrl} id={id} audioRef={audioRef} />
       </PlayerDispatchContext.Provider>
     </PlayerContext.Provider>
   );

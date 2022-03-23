@@ -18,7 +18,8 @@ export type Music = {
 
 export type MusicActionType =
   | { type: "playing"; payload: number }
-  | { type: "isPlaying"; payload: undefined }
+  | { type: "play"; payload: undefined }
+  | { type: "pause"; payload: undefined }
   | { type: "initial"; payload: Music };
 
 export type Player = {
