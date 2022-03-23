@@ -1,6 +1,6 @@
 import moment from "moment";
 import Slider from "rc-slider";
-import React, { MutableRefObject, useContext, useState } from "react";
+import { MutableRefObject, useContext, useState } from "react";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import {
   CoverImage,
@@ -29,6 +29,8 @@ function MusicController({
   audioRef,
   musicName,
   artists,
+  nextPlayEvent,
+  prevPlayEvent,
 }: Player & { audioRef: MutableRefObject<HTMLAudioElement | undefined> }) {
   const musicProps = useContext(PlayerContext);
   const playerDispatch = useContext(PlayerDispatchContext);
@@ -84,20 +86,28 @@ function MusicController({
         / {moment(duration * 1000).format("mm:ss")}
       </TimeInfoArea>
       <IconArea>
-        <NeumorphismButton size="small">
+        <NeumorphismButton
+          size="small"
+          onClick={() => {
+            if (!prevPlayEvent) {
+              alert("play previous song");
+            } else {
+              prevPlayEvent();
+            }
+          }}
+        >
           <BsFillSkipStartFill size={20} color={"#333333"} />
         </NeumorphismButton>
         {isPlaying ? (
-          <NeumorphismButton size="default">
-            <BsFillPauseFill
-              size={25}
-              color={"#333333"}
-              onClick={() => {
-                if (audioRef.current) {
-                  audioRef.current.pause();
-                }
-              }}
-            />
+          <NeumorphismButton
+            size="default"
+            onClick={() => {
+              if (audioRef.current) {
+                audioRef.current.pause();
+              }
+            }}
+          >
+            <BsFillPauseFill size={25} color={"#333333"} />
           </NeumorphismButton>
         ) : (
           <NeumorphismButton size="default">
@@ -113,7 +123,17 @@ function MusicController({
           </NeumorphismButton>
         )}
         <NeumorphismButton size="small">
-          <BsFillSkipEndFill size={20} color={"#333333"} />
+          <BsFillSkipEndFill
+            size={20}
+            color={"#333333"}
+            onClick={() => {
+              if (!nextPlayEvent) {
+                alert("play next song");
+              } else {
+                nextPlayEvent();
+              }
+            }}
+          />
         </NeumorphismButton>
       </IconArea>
     </PlayerContainer>

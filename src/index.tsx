@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './MusicPlayer';
+import MusicPlayer from './MusicPlayer';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App id={0} />
+    <MusicPlayer id={0} />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -23,6 +23,8 @@ function MusicPlayer({
   musicName,
   artists,
   autoPlay = false,
+  nextPlayEvent,
+  prevPlayEvent,
 }: Player) {
   const audioRef = useRef<HTMLAudioElement>();
   const intervalRef = useRef<number>(-1);

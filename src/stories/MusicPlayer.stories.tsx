@@ -88,7 +88,7 @@ const Example = () => {
   return <>{music && <MusicPlayer {...music} id={music.id || 0} />}</>;
 };
 
-const DataTemplate: ComponentStory<typeof MusicPlayer> = (args) => <Example />;
+const DataTemplate: ComponentStory<typeof MusicPlayer> = () => <Example />;
 
 export const Secondary = DataTemplate.bind({});
 Secondary.args = {};
