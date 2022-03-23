@@ -16,13 +16,14 @@ import {
 import { Player } from "./types";
 import {
   BsFillPauseFill,
+  BsFillPlayFill,
   BsFillSkipStartFill,
   BsFillSkipEndFill,
 } from "react-icons/bs";
 
 const defaultPicUrl = `https://www.esp-4u.com/d/uploads/2021-08-29/bedcafc472655fe2919cc6b20d68bf01.jpeg`;
 
-function MusicPlayer({
+function MusicController({
   picUrl,
   src,
   audioRef,
@@ -35,6 +36,8 @@ function MusicPlayer({
 
   const currentTime = musicProps?.currentTime || 0;
   const duration = musicProps?.duration || 0;
+
+  let isPlaying = audioRef.current ? !audioRef.current.paused : false;
 
   const onAfterChange = (value: number | number[]) => {
     setSliderValue(-1);
@@ -56,8 +59,12 @@ function MusicPlayer({
     <PlayerContainer>
       <CoverImage src={picUrl || defaultPicUrl} alt={picUrl || defaultPicUrl} />
       <MusicInfoArea>
-        <MusicName cols={2}>One Last Kiss</MusicName>
-        <Artists cols={1}>11111111111</Artists>
+        <MusicName cols={2}>
+          {musicName || "Opps,choose a music plz!"}
+        </MusicName>
+        <Artists cols={1}>
+          {artists ? artists.join("/") : "sorry,i can't show artists"}
+        </Artists>
       </MusicInfoArea>
       <SliderContainer>
         <Slider
@@ -80,9 +87,31 @@ function MusicPlayer({
         <NeumorphismButton size="small">
           <BsFillSkipStartFill size={20} color={"#333333"} />
         </NeumorphismButton>
-        <NeumorphismButton size="default">
-          <BsFillPauseFill size={25} color={"#333333"} />
-        </NeumorphismButton>
+        {isPlaying ? (
+          <NeumorphismButton size="default">
+            <BsFillPauseFill
+              size={25}
+              color={"#333333"}
+              onClick={() => {
+                if (audioRef.current) {
+                  audioRef.current.pause();
+                }
+              }}
+            />
+          </NeumorphismButton>
+        ) : (
+          <NeumorphismButton size="default">
+            <BsFillPlayFill
+              size={25}
+              color={"#333333"}
+              onClick={() => {
+                if (audioRef.current) {
+                  audioRef.current.play();
+                }
+              }}
+            />
+          </NeumorphismButton>
+        )}
         <NeumorphismButton size="small">
           <BsFillSkipEndFill size={20} color={"#333333"} />
         </NeumorphismButton>
@@ -91,4 +120,4 @@ function MusicPlayer({
   );
 }
 
-export default MusicPlayer;
+export default MusicController;

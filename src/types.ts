@@ -26,7 +26,7 @@ export type Player = {
   src?: string;
   picUrl?: string;
   musicName?: string;
-  artists?: string[] | string;
+  artists?: string[];
   nextPlayEvent?: NextOrPrevPlayEvent;
   prevPlayEvent?: NextOrPrevPlayEvent;
   pauseEvent?: PauseEvent;

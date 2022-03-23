@@ -22,7 +22,7 @@ export const MultiEllipsis = styled.div<{ cols: number }>`
 export const MusicName = styled(MultiEllipsis)`
   font-size: 1rem;
   align-self: flex-start;
-  text-shadow: 2px 1px 1px #cecece;
+  /* text-shadow: 2px 1px 1px #cecece; */
 `;
 
 export const PlayerContainer = styled(Flex)`
@@ -32,7 +32,7 @@ export const PlayerContainer = styled(Flex)`
 `;
 
 export const MusicInfoArea = styled(Grid)<{ minWidth?: number }>`
-  max-width: 10vw;
+  max-width: 150px;
   min-width: ${({ minWidth }) => minWidth || "80px"};
   margin-right: 8px;
   flex-direction: column;
@@ -40,6 +40,7 @@ export const MusicInfoArea = styled(Grid)<{ minWidth?: number }>`
   align-items: flex-start;
   grid-auto-flow: row;
   padding: 5px 0px;
+  margin-left: 8px;
 `;
 
 export const MusicInfoContainer = styled(Flex)`

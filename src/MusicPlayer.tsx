@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import "./App.css";
 import { Music, MusicActionType, Player } from "./types";
 import "rc-slider/assets/index.css";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
-import MusicPlayer from "./MusicController";
+import MusicController from "./MusicController";
 
-const defaultSrc =
-  "http://m801.music.126.net/20220323124214/903cb242255d2735058e3f4353300b59/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5537344714/ef40/ccc5/5f7d/016d259d584e04f7df47dfbd2a2cc2d9.mp3";
+const defaultSrc = "";
 
 const initialplayerState: Music = {
   duration: 0,
@@ -15,12 +14,14 @@ const initialplayerState: Music = {
   id: -1,
 };
 
-function App({
+function MusicPlayer({
   src,
   picUrl,
   id = 0,
   playEvent,
   pauseEvent,
+  musicName,
+  artists,
   autoPlay = false,
 }: Player) {
   const audioRef = useRef<HTMLAudioElement>();
@@ -91,7 +92,7 @@ function App({
       <PlayerDispatchContext.Provider value={playerDispatch}>
         <audio
           src={src || defaultSrc}
-          controls
+          // controls
           autoPlay={autoPlay}
           ref={(ref) => {
             if (ref) {
@@ -102,10 +103,16 @@ function App({
           onPause={onPause}
           onCanPlay={onCanplay}
         />
-        <MusicPlayer picUrl={picUrl} id={id} audioRef={audioRef} />
+        <MusicController
+          picUrl={picUrl}
+          id={id}
+          audioRef={audioRef}
+          musicName={musicName}
+          artists={artists}
+        />
       </PlayerDispatchContext.Provider>
     </PlayerContext.Provider>
   );
 }
 
-export default App;
+export default MusicPlayer;
