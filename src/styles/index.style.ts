@@ -22,6 +22,7 @@ export const MultiEllipsis = styled.div<{ cols: number }>`
 export const MusicName = styled(MultiEllipsis)`
   font-size: 1rem;
   align-self: flex-start;
+  text-shadow: 2px 1px 1px #cecece;
 `;
 
 export const PlayerContainer = styled(Flex)`
@@ -62,6 +63,9 @@ export const CoverImage = styled.img`
   width: 60px;
   height: 60px;
   margin-right: 8px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 5px 5px 9px #ebebeb, -5px -5px 9px #ffffff;
 `;
 
 export const IconArea = styled(Grid)`
