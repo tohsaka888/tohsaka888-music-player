@@ -1,94 +1,111 @@
-import moment from "moment";
-import Slider from "rc-slider";
-import React, { MutableRefObject, useContext, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import "./App.css";
+import { Music, MusicActionType, Player } from "./types";
+import "rc-slider/assets/index.css";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
-import {
-  CoverImage,
-  MusicName,
-  MusicInfoArea,
-  PlayerContainer,
-  TimeInfoArea,
-  Artists,
-  IconArea,
-  NeumorphismButton,
-  SliderContainer,
-} from "./styles/index.style";
-import { Player } from "./types";
-import {
-  BsFillPauseFill,
-  BsFillSkipStartFill,
-  BsFillSkipEndFill,
-} from "react-icons/bs";
+import MusicPlayer from "./MusicController";
 
-const defaultPicUrl = `https://www.esp-4u.com/d/uploads/2021-08-29/bedcafc472655fe2919cc6b20d68bf01.jpeg`;
+const defaultSrc =
+  "http://m801.music.126.net/20220323124214/903cb242255d2735058e3f4353300b59/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5537344714/ef40/ccc5/5f7d/016d259d584e04f7df47dfbd2a2cc2d9.mp3";
 
-function MusicPlayer({
-  picUrl,
+const initialplayerState: Music = {
+  duration: 0,
+  currentTime: 0,
+  playing: false,
+  id: -1,
+};
+
+function App({
   src,
-  audioRef,
-  musicName,
-  artists,
-}: Player & { audioRef: MutableRefObject<HTMLAudioElement | undefined> }) {
-  const musicProps = useContext(PlayerContext);
-  const playerDispatch = useContext(PlayerDispatchContext);
-  const [sliderValue, setSliderValue] = useState<number>(-1);
+  picUrl,
+  id = 0,
+  playEvent,
+  pauseEvent,
+  autoPlay = false,
+}: Player) {
+  const audioRef = useRef<HTMLAudioElement>();
+  const intervalRef = useRef<number>(-1);
 
-  const currentTime = musicProps?.currentTime || 0;
-  const duration = musicProps?.duration || 0;
-
-  const onAfterChange = (value: number | number[]) => {
-    setSliderValue(-1);
-    if (typeof value === "number" && playerDispatch) {
-      playerDispatch({ type: "playing", payload: value });
-      if (audioRef.current) {
-        audioRef.current.currentTime = value;
+  const playerReducer = useCallback(
+    (preState: Music, action: MusicActionType) => {
+      switch (action.type) {
+        case "playing":
+          return { ...preState, currentTime: action.payload };
+        case "play":
+          return { ...preState, playing: true };
+        case "pause":
+          return { ...preState, playing: false };
+        case "initial":
+          return action.payload;
       }
-    }
-  };
+    },
+    []
+  );
 
-  const onChange = (value: number | number[]) => {
-    if (typeof value === "number") {
-      setSliderValue(value);
+  const [playerState, playerDispatch] = useReducer(
+    playerReducer,
+    initialplayerState
+  );
+
+  useEffect(() => {
+    if (playerState.playing) {
+      const callback = () => {
+        const currentTime = audioRef.current?.currentTime || 0;
+        playerDispatch({ type: "playing", payload: currentTime });
+      };
+      intervalRef.current = window.setInterval(callback, 300);
+    } else {
+      window.clearInterval(intervalRef.current);
     }
-  };
+  }, [playerState.playing]);
+
+  const onCanplay = useCallback(() => {
+    const duration = audioRef.current?.duration || 0;
+    if (id !== playerState.id) {
+      playerDispatch({
+        type: "initial",
+        payload: { currentTime: 0, duration, id, playing: autoPlay },
+      });
+    }
+  }, [autoPlay, id, playerState.id]);
+
+  const onPlay = useCallback(() => {
+    playerDispatch({
+      type: "play",
+      payload: undefined,
+    });
+    if (playEvent) {
+      playEvent();
+    }
+  }, [playEvent]);
+
+  const onPause = useCallback(() => {
+    playerDispatch({ type: "pause", payload: undefined });
+    if (pauseEvent) {
+      pauseEvent();
+    }
+  }, [pauseEvent]);
 
   return (
-    <PlayerContainer>
-      <CoverImage src={picUrl || defaultPicUrl} alt={picUrl || defaultPicUrl} />
-      <MusicInfoArea>
-        <MusicName cols={2}>One Last Kiss</MusicName>
-        <Artists cols={1}>11111111111</Artists>
-      </MusicInfoArea>
-      <SliderContainer>
-        <Slider
-          disabled={!!src}
-          value={sliderValue === -1 ? currentTime : sliderValue}
-          max={duration}
-          min={0}
-          onAfterChange={onAfterChange}
-          onChange={onChange}
-          style={{ flex: 1 }}
+    <PlayerContext.Provider value={playerState}>
+      <PlayerDispatchContext.Provider value={playerDispatch}>
+        <audio
+          src={src || defaultSrc}
+          controls
+          autoPlay={autoPlay}
+          ref={(ref) => {
+            if (ref) {
+              audioRef.current = ref;
+            }
+          }}
+          onPlay={onPlay}
+          onPause={onPause}
+          onCanPlay={onCanplay}
         />
-      </SliderContainer>
-      <TimeInfoArea>
-        {moment((sliderValue === -1 ? currentTime : sliderValue) * 1000).format(
-          "mm:ss"
-        )}
-        / {moment(duration * 1000).format("mm:ss")}
-      </TimeInfoArea>
-      <IconArea>
-        <NeumorphismButton size="small">
-          <BsFillSkipStartFill size={20} color={"#333333"} />
-        </NeumorphismButton>
-        <NeumorphismButton size="default">
-          <BsFillPauseFill size={25} color={"#333333"} />
-        </NeumorphismButton>
-        <NeumorphismButton size="small">
-          <BsFillSkipEndFill size={20} color={"#333333"} />
-        </NeumorphismButton>
-      </IconArea>
-    </PlayerContainer>
+        <MusicPlayer picUrl={picUrl} id={id} audioRef={audioRef} />
+      </PlayerDispatchContext.Provider>
+    </PlayerContext.Provider>
   );
 }
 
-export default MusicPlayer;
+export default App;
