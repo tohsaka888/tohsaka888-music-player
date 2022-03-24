@@ -1,6 +1,6 @@
 {
   "name": "tohsaka888-music-player",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {
     "moment": "^2.29.1",
     "rc-slider": "^10.0.0-alpha.5",
@@ -13,7 +13,7 @@
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export PUBLIC_URL=http://localhost:3000/ && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
