@@ -1,7 +1,6 @@
 {
-  "name": "react-music-player",
-  "version": "0.1.0",
-  "private": true,
+  "name": "tohsaka888-music-player",
+  "version": "0.1.1",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -28,7 +27,10 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "chromatic": "npx chromatic --project-token=79f27801cdfc"
+    "chromatic": "npx chromatic --project-token=79f27801cdfc",
+    "build:commonjs": "babel src --out-dir lib/commonjs --extensions '.ts,.tsx' --source-maps",
+    "build:module": "tsc src/*.tsx --module es2022 --target es5 --jsx 'react' --sourceMap --skipLibCheck --allowSyntheticDefaultImports --outDir lib/module --moduleResolution node",
+    "build:typescript": "tsc src/*.tsx --declaration --emitDeclarationOnly --jsx 'react'  --skipLibCheck --allowSyntheticDefaultImports  --outDir lib/typescript"
   },
   "eslintConfig": {
     "extends": [
@@ -71,5 +73,27 @@
     "@storybook/testing-library": "^0.0.9",
     "chromatic": "^6.5.3",
     "webpack": "^5.70.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "lib/commonjs/index.js",
+  "types": "lib/typescript/index.d.ts",
+  "module": "lib/module/index.js",
+  "source": "src/index.tsx",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tohsaka888/react-music-player.git"
+  },
+  "keywords": [
+    "music-player"
+  ],
+  "author": "tohsaka888",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tohsaka888/react-music-player/issues"
+  },
+  "homepage": "https://github.com/tohsaka888/react-music-player#readme"
 }

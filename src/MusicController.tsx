@@ -1,6 +1,6 @@
 import moment from "moment";
 import Slider from "rc-slider";
-import { MutableRefObject, useContext, useState } from "react";
+import React, { MutableRefObject, useContext, useState } from "react";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import {
   CoverImage,
