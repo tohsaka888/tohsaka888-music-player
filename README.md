@@ -20,7 +20,7 @@ yarn add tohsaka888-music-player
 
 ## Props
 
-| propname      | Type     | required | discription                             |
+| property      | type     | required | discription                             |
 | ------------- | -------- | -------- | --------------------------------------- |
 | id            | number   | Y        | music's unique identification           |
 | musicName     | string   |          | the name of music                       |
