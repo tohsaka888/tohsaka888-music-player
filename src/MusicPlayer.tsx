@@ -4,8 +4,6 @@ import "rc-slider/assets/index.css";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import MusicController from "./MusicController";
 
-const defaultSrc = "";
-
 const initialplayerState: Music = {
   duration: 0,
   currentTime: 0,
@@ -91,25 +89,29 @@ function MusicPlayer({
   return (
     <PlayerContext.Provider value={playerState}>
       <PlayerDispatchContext.Provider value={playerDispatch}>
-        <audio
-          src={src || defaultSrc}
-          // controls
-          autoPlay={autoPlay}
-          ref={(ref) => {
-            if (ref) {
-              audioRef.current = ref;
-            }
-          }}
-          onPlay={onPlay}
-          onPause={onPause}
-          onCanPlay={onCanplay}
-        />
+        {src && (
+          <audio
+            src={src}
+            // controls
+            autoPlay={autoPlay}
+            ref={(ref) => {
+              if (ref) {
+                audioRef.current = ref;
+              }
+            }}
+            onPlay={onPlay}
+            onPause={onPause}
+            onCanPlay={onCanplay}
+          />
+        )}
         <MusicController
           picUrl={picUrl}
           id={id}
           audioRef={audioRef}
           musicName={musicName}
           artists={artists}
+          nextPlayEvent={nextPlayEvent}
+          prevPlayEvent={prevPlayEvent}
         />
       </PlayerDispatchContext.Provider>
     </PlayerContext.Provider>

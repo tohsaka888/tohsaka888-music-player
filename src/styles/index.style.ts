@@ -92,7 +92,7 @@ const showSize = ({
   }
 };
 
-export const NeumorphismButton = styled.button<{
+export const NeumorphismButton = styled.div<{
   size: "large" | "default" | "small";
 }>`
   display: flex;
@@ -110,6 +110,8 @@ export const NeumorphismButton = styled.button<{
     background: #ffffff;
     box-shadow: inset 5px 5px 9px #ebebeb, inset -5px -5px 9px #ffffff;
     opacity: 0.8;
+    border: none;
+    user-select: none;
   }
 `;
 

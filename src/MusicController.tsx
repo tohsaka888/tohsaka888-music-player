@@ -39,7 +39,8 @@ function MusicController({
   const currentTime = musicProps?.currentTime || 0;
   const duration = musicProps?.duration || 0;
 
-  let isPlaying = audioRef.current ? !audioRef.current.paused : false;
+  const isPlaying = audioRef.current ? !audioRef.current.paused : false;
+  // const src = audioRef.current?.src;
 
   const onAfterChange = (value: number | number[]) => {
     setSliderValue(-1);
@@ -115,6 +116,9 @@ function MusicController({
               size={25}
               color={"#333333"}
               onClick={() => {
+                if (!src) {
+                  alert("no playing song");
+                }
                 if (audioRef.current) {
                   audioRef.current.play();
                 }
