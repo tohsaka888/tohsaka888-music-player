@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useReducer, useRef } from "react";
-import "./App.css";
 import { Music, MusicActionType, Player } from "./types";
 import "rc-slider/assets/index.css";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";

@@ -1,24 +1,16 @@
 {
   "name": "tohsaka888-music-player",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
-    "@types/styled-components": "^5.1.24",
     "moment": "^2.29.1",
     "rc-slider": "^10.0.0-alpha.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-    "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
-    "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -72,13 +64,23 @@
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
     "chromatic": "^6.5.3",
-    "webpack": "^5.70.0"
+    "webpack": "^5.70.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "@types/styled-components": "^5.1.24",
+    "react-scripts": "5.0.0",
+    "typescript": "^4.4.2"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "lib/commonjs/index.js",
-  "types": "lib/typescript/index.d.ts",
-  "module": "lib/module/index.js",
-  "source": "src/index.tsx",
+  "main": "lib/commonjs/MusicPlayer.js",
+  "types": "lib/typescript/MusicPlayer.d.ts",
+  "module": "lib/module/MusicPlayer.js",
+  "source": "src/MusicPlayer.tsx",
   "files": [
     "src",
     "lib"

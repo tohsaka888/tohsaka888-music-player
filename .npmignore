@@ -1,7 +1,0 @@
-# .npmignore 
-.gitignore
-build
-public
-.storybook
-build-storybook.log
-yarn.lock
