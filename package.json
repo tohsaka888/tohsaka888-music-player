@@ -94,7 +94,7 @@
     "music-player"
   ],
   "author": "tohsaka888",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tohsaka888/react-music-player/issues"
   },
