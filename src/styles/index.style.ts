@@ -71,7 +71,7 @@ export const CoverImage = styled.img`
 
 export const IconArea = styled(Grid)`
   width: 120px;
-  margin-left: 8px;
+  margin-right: 8px;
   grid-auto-flow: column;
   grid-column-gap: 4px;
   justify-content: center;
@@ -122,4 +122,11 @@ export const SliderContainer = styled(Flex)`
   box-shadow: 5px 5px 9px #ebebeb, -5px -5px 9px #ffffff;
   flex: 1;
   padding: 0px 2%;
+`;
+
+export const ExtraIconArea = styled(Grid)`
+  width: 120px;
+  grid-auto-flow: column;
+  grid-column-gap: 4px;
+  justify-content: center;
 `;

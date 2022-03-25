@@ -3,6 +3,7 @@ import { Music, MusicActionType, Player } from "./types";
 import "rc-slider/assets/index.css";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import MusicController from "./MusicController";
+import PlayerPropsContext from "./Context/PlayerPropsContext";
 
 const initialplayerState: Music = {
   duration: 0,
@@ -87,34 +88,39 @@ function MusicPlayer({
   }, [pauseEvent]);
 
   return (
-    <PlayerContext.Provider value={playerState}>
-      <PlayerDispatchContext.Provider value={playerDispatch}>
-        {src && (
-          <audio
-            src={src}
-            // controls
-            autoPlay={autoPlay}
-            ref={(ref) => {
-              if (ref) {
-                audioRef.current = ref;
-              }
-            }}
-            onPlay={onPlay}
-            onPause={onPause}
-            onCanPlay={onCanplay}
-          />
-        )}
-        <MusicController
-          picUrl={picUrl}
-          id={id}
-          audioRef={audioRef}
-          musicName={musicName}
-          artists={artists}
-          nextPlayEvent={nextPlayEvent}
-          prevPlayEvent={prevPlayEvent}
-        />
-      </PlayerDispatchContext.Provider>
-    </PlayerContext.Provider>
+    <PlayerPropsContext.Provider
+      value={{
+        artists,
+        autoPlay,
+        audioRef,
+        id,
+        nextPlayEvent,
+        prevPlayEvent,
+        picUrl,
+        musicName,
+      }}
+    >
+      <PlayerContext.Provider value={playerState}>
+        <PlayerDispatchContext.Provider value={playerDispatch}>
+          {src && (
+            <audio
+              src={src}
+              // controls
+              autoPlay={autoPlay}
+              ref={(ref) => {
+                if (ref) {
+                  audioRef.current = ref;
+                }
+              }}
+              onPlay={onPlay}
+              onPause={onPause}
+              onCanPlay={onCanplay}
+            />
+          )}
+          <MusicController />
+        </PlayerDispatchContext.Provider>
+      </PlayerContext.Provider>
+    </PlayerPropsContext.Provider>
   );
 }
 
