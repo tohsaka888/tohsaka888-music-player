@@ -33,4 +33,8 @@ export type Player = {
   playEvent?: PlayEvent;
   autoPlay?: boolean;
   id: number;
+  defaultFavourState?: boolean;
+  likeEvent?: Function;
+  unLikeEvent?: Function;
+  addPlaylistEvent?: Function;
 };

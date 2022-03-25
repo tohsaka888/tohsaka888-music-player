@@ -21,57 +21,60 @@ export const MultiEllipsis = styled.div<{ cols: number }>`
 
 export const MusicName = styled(MultiEllipsis)`
   font-size: 1rem;
-  align-self: flex-start;
+  user-select: none;
+  /* align-self: flex-start; */
   /* text-shadow: 2px 1px 1px #cecece; */
 `;
 
 export const PlayerContainer = styled(Flex)`
-  height: 60px;
+  height: 70px;
   padding: 8px;
   /* color: white; */
 `;
 
 export const MusicInfoArea = styled(Grid)<{ minWidth?: number }>`
-  max-width: 150px;
-  min-width: ${({ minWidth }) => minWidth || "80px"};
-  margin-right: 8px;
-  flex-direction: column;
+  min-width: ${({ minWidth }) => minWidth || "70px"};
+  align-items: center;
+  grid-auto-flow: column;
+  width: 100%;
+  padding-left: 10px;
+  justify-content: flex-start;
   height: 100%;
-  align-items: flex-start;
-  grid-auto-flow: row;
-  padding: 5px 0px;
-  margin-left: 8px;
 `;
 
-export const MusicInfoContainer = styled(Flex)`
-  border-radius: 5px;
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  box-shadow: 5px 5px 9px #ebebeb, -5px -5px 9px #ffffff;
+export const MusicInfoContainer = styled(Grid)`
+  flex: 1;
+  height: 100%;
 `;
 
 export const Artists = styled(MultiEllipsis)`
-  font-size: 12px;
-  align-self: flex-end;
+  font-size: 0.8rem;
+  color: gray;
+  user-select: none;
+  /* align-self: center; */
 `;
 
 export const TimeInfoArea = styled(Flex)`
   padding: 0px;
-  font-size: 1rem;
-  margin: 0px 0px 0px 16px;
+  font-size: 12px;
+  margin: 0px 0px 0px 8px;
+  padding-bottom: 1px;
+  user-select: none;
 `;
 
 export const CoverImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   margin-right: 8px;
   border-radius: 8px;
   background: linear-gradient(145deg, #ffffff, #e6e6e6);
   box-shadow: 5px 5px 9px #ebebeb, -5px -5px 9px #ffffff;
+  user-select: none;
 `;
 
 export const IconArea = styled(Grid)`
-  width: 120px;
-  margin-right: 8px;
+  width: 100px;
+  margin-right: 16px;
   grid-auto-flow: column;
   grid-column-gap: 4px;
   justify-content: center;
@@ -84,9 +87,9 @@ const showSize = ({
 }) => {
   switch (size) {
     case "small":
-      return "32px";
+      return "30px";
     case "default":
-      return "38px";
+      return "36px";
     case "large":
       return "44px";
   }
@@ -116,17 +119,20 @@ export const NeumorphismButton = styled.div<{
 `;
 
 export const SliderContainer = styled(Flex)`
-  height: 80%;
   border-radius: 60px;
+  /* border-top: 1px solid #ebebeb; */
   background: linear-gradient(145deg, #f9f9f9, #ffffff, #f9f9f9);
-  box-shadow: 5px 5px 9px #ebebeb, -5px -5px 9px #ffffff;
-  flex: 1;
-  padding: 0px 2%;
+  box-shadow: 1px 5px 9px #ebebeb, -1px -1px 9px #ebebeb;
+  width: 100%;
+  padding: 10px 15px 10px 20px;
+  align-items: center;
+  align-self: flex-end;
 `;
 
 export const ExtraIconArea = styled(Grid)`
   width: 120px;
   grid-auto-flow: column;
   grid-column-gap: 4px;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-left: 20px;
 `;

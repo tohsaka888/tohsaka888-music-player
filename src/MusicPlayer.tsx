@@ -23,6 +23,10 @@ function MusicPlayer({
   autoPlay = false,
   nextPlayEvent,
   prevPlayEvent,
+  likeEvent,
+  defaultFavourState = false,
+  unLikeEvent,
+  addPlaylistEvent,
 }: Player) {
   const audioRef = useRef<HTMLAudioElement>();
   const intervalRef = useRef<number>(-1);
@@ -98,6 +102,10 @@ function MusicPlayer({
         prevPlayEvent,
         picUrl,
         musicName,
+        likeEvent,
+        defaultFavourState,
+        unLikeEvent,
+        addPlaylistEvent,
       }}
     >
       <PlayerContext.Provider value={playerState}>
