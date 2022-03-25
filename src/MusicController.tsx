@@ -12,18 +12,16 @@ import {
   IconArea,
   NeumorphismButton,
   SliderContainer,
-  ExtraIconArea,
+  MusicInfoContainer,
 } from "./styles/index.style";
 import {
   BsFillPauseFill,
   BsFillPlayFill,
   BsFillSkipStartFill,
   BsFillSkipEndFill,
-  BsFillVolumeUpFill,
-  BsFillVolumeMuteFill,
 } from "react-icons/bs";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import PlayerPropsContext from "./Context/PlayerPropsContext";
+import ExtraFeatures from "./ExtraFeatures";
 
 const defaultPicUrl = `https://www.esp-4u.com/d/uploads/2021-08-29/bedcafc472655fe2919cc6b20d68bf01.jpeg`;
 
@@ -130,39 +128,34 @@ function MusicController() {
         </NeumorphismButton>
       </IconArea>
       <CoverImage src={picUrl || defaultPicUrl} alt={picUrl || defaultPicUrl} />
-      <MusicInfoArea>
-        <MusicName cols={2}>
-          {musicName || "Opps,choose a music plz!"}
-        </MusicName>
-        <Artists cols={1}>
-          {artists ? artists.join("/") : "sorry,i can't show artists"}
-        </Artists>
-      </MusicInfoArea>
-      <SliderContainer>
-        <Slider
-          disabled={!src}
-          value={sliderValue === -1 ? currentTime : sliderValue}
-          max={duration}
-          min={0}
-          onAfterChange={onAfterChange}
-          onChange={onChange}
-          style={{ flex: 1 }}
-        />
-      </SliderContainer>
-      <TimeInfoArea>
-        {moment((sliderValue === -1 ? currentTime : sliderValue) * 1000).format(
-          "mm:ss"
-        )}
-        / {moment(duration * 1000).format("mm:ss")}
-      </TimeInfoArea>
-      <ExtraIconArea>
-        <NeumorphismButton size="small">
-          <BsFillVolumeUpFill size={20} />
-        </NeumorphismButton>
-        <NeumorphismButton size="small">
-          <AiOutlineHeart size={20} />
-        </NeumorphismButton>
-      </ExtraIconArea>
+      <MusicInfoContainer>
+        <MusicInfoArea>
+          <MusicName cols={1}>
+            {musicName || "Opps,choose a music plz!"} &nbsp;
+          </MusicName>
+          <Artists cols={1}>
+            {artists ? artists.join("/") : "sorry,i can't show artists"}
+          </Artists>
+        </MusicInfoArea>
+        <SliderContainer>
+          <Slider
+            disabled={!src}
+            value={sliderValue === -1 ? currentTime : sliderValue}
+            max={duration}
+            min={0}
+            onAfterChange={onAfterChange}
+            onChange={onChange}
+            style={{ flex: 1 }}
+          />
+          <TimeInfoArea>
+            {moment(
+              (sliderValue === -1 ? currentTime : sliderValue) * 1000
+            ).format("mm:ss")}
+            / {moment(duration * 1000).format("mm:ss")}
+          </TimeInfoArea>
+        </SliderContainer>
+      </MusicInfoContainer>
+      <ExtraFeatures />
     </PlayerContainer>
   );
 }
