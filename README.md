@@ -20,18 +20,22 @@ yarn add tohsaka888-music-player
 
 ## Props
 
-| property      | type     | required | discription                             |
-| ------------- | -------- | -------- | --------------------------------------- |
-| id            | number   | Y        | music's unique identification           |
-| musicName     | string   |          | the name of music                       |
-| src           | string   |          | music url                               |
-| artists       | string[] |          | artists                                 |
-| nextPlayEvent | function |          | callback that click the next button     |
-| prevPlayEvent | function |          | callback that click the previous button |
-| pauseEvent    | function |          | callback that click the pause button    |
-| playEvent     | function |          | callback that click the play button     |
-| autoPlay      | function |          | as well as the property of `audio`    |
-| picUrl        | string   |          | the cover url of music                  |
+| property           | type     | required | discription                                    |
+| ------------------ | -------- | -------- | ---------------------------------------------- |
+| id                 | number   | Y        | music's unique identification                  |
+| musicName          | string   |          | the name of music                              |
+| src                | string   |          | music url                                      |
+| artists            | string[] |          | artists                                        |
+| nextPlayEvent      | function |          | callback that click the next button            |
+| prevPlayEvent      | function |          | callback that click the previous button        |
+| pauseEvent         | function |          | callback that click the pause button           |
+| playEvent          | function |          | callback that click the play button            |
+| autoPlay           | function |          | as well as the property of `audio`           |
+| picUrl             | string   |          | the cover url of music                         |
+| likeEvent          | function |          | callback if user like this music               |
+| unLikeEvent        | function |          | callback if user unlike this muisc             |
+| addPlaylistEvent   | function |          | callback that user add the music into playlist |
+| defaultFavourState | boolean  |          | the initial state of `like` button           |
 
 ## Useage
 
