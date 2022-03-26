@@ -237,4 +237,4 @@ export default App;
 
 ## Demo
 
-[click me to view the demo](https://623acaa9675953003a0c0f7f-bjhdmxgwcq.chromatic.com/?path=/story/example-musicplayer--default)
+[click me to view the demo](https://623acaa9675953003a0c0f7f-zjwgtkgkkf.chromatic.com/?path=/story/example-musicplayer--default)
