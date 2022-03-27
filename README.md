@@ -220,7 +220,7 @@ function App() {
   return (
     <div className="App">
       <MusicPlayer
-        id={0}
+        musicId={0}
         musicName={info.name}
         autoPlay
         artists={info.artist}
@@ -237,4 +237,4 @@ export default App;
 
 ## Demo
 
-[click me to view the demo](https://623acaa9675953003a0c0f7f-kxpjkvklou.chromatic.com/?path=/story/example-musicplayer--default)
+[click me to view the demo](https://623acaa9675953003a0c0f7f-wglvjhvgvt.chromatic.com/?path=/story/example-musicplayer--default)
