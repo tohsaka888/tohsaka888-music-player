@@ -134,5 +134,8 @@ export const ExtraIconArea = styled(Grid)`
   grid-auto-flow: column;
   grid-column-gap: 4px;
   justify-content: flex-end;
+  position: relative;
   margin-left: 20px;
+  align-items: flex-end;
+  height: 100%;
 `;
