@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof MusicPlayer> = (args) => (
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-  id: 0,
+  musicId: 0,
   src: "",
 };
 
@@ -73,7 +73,7 @@ const getMusicUrl = async (): Promise<Partial<Player> | undefined> => {
     musicName: "One Last Kiss",
     artists: ["宇多田光"],
     src: data.data[0].url,
-    id: data.data[0].id,
+    musicId: data.data[0].id,
     autoPlay: true,
     picUrl:
       "http://p1.music.126.net/l3G4LigZnOxFE9lB4bz_LQ==/109951165791860501.jpg?param=130y130",
@@ -85,7 +85,7 @@ const Example = () => {
   useEffect(() => {
     getMusicUrl().then((data) => setMusic(data));
   }, []);
-  return <>{music && <MusicPlayer {...music} id={music.id || 0} />}</>;
+  return <>{music && <MusicPlayer {...music} musicId={music.musicId || 0} />}</>;
 };
 
 const DataTemplate: ComponentStory<typeof MusicPlayer> = () => <Example />;

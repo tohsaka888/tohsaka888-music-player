@@ -32,7 +32,7 @@ export type Player = {
   pauseEvent?: PauseEvent;
   playEvent?: PlayEvent;
   autoPlay?: boolean;
-  id: number;
+  musicId: number;
   defaultFavourState?: boolean;
   likeEvent?: Function;
   unLikeEvent?: Function;
