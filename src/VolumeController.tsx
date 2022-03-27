@@ -71,7 +71,8 @@ function VolumeController() {
             if (cancelRef.current === 0) {
               cancelRef.current = window.setTimeout(() => {
                 setShow(true);
-              }, 1000);
+                cancelRef.current = 0;
+              }, 500);
               setAutoHidden(true);
             }
           }}
@@ -104,7 +105,11 @@ function VolumeController() {
             <Slider
               vertical
               onBeforeChange={() => setAutoHidden(false)}
-              onAfterChange={() => setShow(false)}
+              onAfterChange={() =>
+                setTimeout(() => {
+                  setShow(false);
+                }, 500)
+              }
               max={100}
               min={0}
               defaultValue={volume}
