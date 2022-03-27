@@ -1,10 +1,11 @@
 {
   "name": "tohsaka888-music-player",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "dependencies": {
     "moment": "^2.29.1",
     "rc-slider": "^10.0.0-alpha.5",
     "react-icons": "^4.3.1",
+    "react-spring": "^9.4.4",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.0"
   },
