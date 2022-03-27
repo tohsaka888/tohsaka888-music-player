@@ -45,10 +45,14 @@ function VolumeController() {
   useChain(show ? [iconRef, controllerRef] : [controllerRef, iconRef]);
 
   useEffect(() => {
-    intervalRef.current = window.setTimeout(() => {
-      setShow(false);
-      setAutoHidden(false);
-    }, 2000);
+    if (autoHidden) {
+      intervalRef.current = window.setTimeout(() => {
+        setShow(false);
+        setAutoHidden(false);
+      }, 2000);
+    } else {
+      window.clearInterval(intervalRef.current);
+    }
 
     return () => {
       window.clearInterval(intervalRef.current);
