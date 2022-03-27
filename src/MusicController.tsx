@@ -66,7 +66,7 @@ function MusicController() {
   };
 
   return (
-    <PlayerContainer>
+    <PlayerContainer {...playerProps}>
       <IconArea>
         <NeumorphismButton
           size="small"
