@@ -22,7 +22,7 @@ yarn add tohsaka888-music-player
 
 | property           | type     | required | discription                                    |
 | ------------------ | -------- | -------- | ---------------------------------------------- |
-| id                 | number   | Y        | music's unique identification                  |
+| musicId            | number   | Y        | music's unique identification                  |
 | musicName          | string   |          | the name of music                              |
 | src                | string   |          | music url                                      |
 | artists            | string[] |          | artists                                        |
