@@ -3,6 +3,9 @@
 # library
 /lib
 
+# storybook
+build-storybook.log
+
 # dependencies
 /node_modules
 /.pnp
