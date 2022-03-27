@@ -1,42 +1,22 @@
 import React, { useContext, useState } from "react";
 import { ExtraIconArea, NeumorphismButton } from "./styles/index.style";
-import { BsFillVolumeUpFill, BsFillVolumeMuteFill } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart, AiOutlinePlus } from "react-icons/ai";
 import PlayerPropsContext from "./Context/PlayerPropsContext";
+import VolumeController from "./VolumeController";
 
 function ExtraFeatures() {
   const playerProps = useContext(PlayerPropsContext);
 
   const defaultFavourState = playerProps?.defaultFavourState || false;
-  const audioRef = playerProps?.audioRef;
   const likeEvent = playerProps?.likeEvent;
   const unLikeEvent = playerProps?.unLikeEvent;
   const addPlaylistEvent = playerProps?.addPlaylistEvent;
 
   const [favour, setFavour] = useState<boolean>(defaultFavourState);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
 
   return (
     <ExtraIconArea>
-      <NeumorphismButton
-        size="small"
-        onClick={() => {
-          setIsMuted(!isMuted);
-          if (audioRef && audioRef.current) {
-            if (isMuted) {
-              audioRef.current.muted = false;
-            } else {
-              audioRef.current.muted = true;
-            }
-          }
-        }}
-      >
-        {isMuted ? (
-          <BsFillVolumeMuteFill size={20} />
-        ) : (
-          <BsFillVolumeUpFill size={20} />
-        )}
-      </NeumorphismButton>
+      <VolumeController />
       <NeumorphismButton
         size="small"
         onClick={() => {
