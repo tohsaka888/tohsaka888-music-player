@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MusicPlayer id={0} />
+    <MusicPlayer musicId={0} style={{ color: "red" }} />
   </React.StrictMode>,
   document.getElementById("root")
 );
