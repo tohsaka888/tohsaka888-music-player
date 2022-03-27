@@ -78,7 +78,7 @@
     "typescript": "^4.4.2",
     "webpack": "^5.70.0"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "react music player",
   "main": "lib/commonjs/MusicPlayer.js",
   "types": "lib/typescript/MusicPlayer.d.ts",
   "module": "lib/module/MusicPlayer.js",
