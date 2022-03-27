@@ -1,9 +1,20 @@
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import React, {
+  HTMLAttributes,
+  RefAttributes,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+} from "react";
 import { Music, MusicActionType, Player } from "./types";
 import "rc-slider/assets/index.css";
 import PlayerContext, { PlayerDispatchContext } from "./Context/PlayerContext";
 import MusicController from "./MusicController";
 import PlayerPropsContext from "./Context/PlayerPropsContext";
+
+type PlayerProps = Player &
+  HTMLAttributes<HTMLDivElement> &
+  RefAttributes<Player & HTMLAttributes<HTMLDivElement>>;
 
 const initialplayerState: Music = {
   duration: 0,
@@ -15,7 +26,7 @@ const initialplayerState: Music = {
 function MusicPlayer({
   src,
   picUrl,
-  id = 0,
+  musicId = 0,
   playEvent,
   pauseEvent,
   musicName,
@@ -27,7 +38,8 @@ function MusicPlayer({
   defaultFavourState = false,
   unLikeEvent,
   addPlaylistEvent,
-}: Player) {
+  ...props
+}: PlayerProps): JSX.Element {
   const audioRef = useRef<HTMLAudioElement>();
   const intervalRef = useRef<number>(-1);
 
@@ -66,13 +78,13 @@ function MusicPlayer({
 
   const onCanplay = useCallback(() => {
     const duration = audioRef.current?.duration || 0;
-    if (id !== playerState.id) {
+    if (musicId !== playerState.id) {
       playerDispatch({
         type: "initial",
-        payload: { currentTime: 0, duration, id, playing: autoPlay },
+        payload: { currentTime: 0, duration, id: musicId, playing: autoPlay },
       });
     }
-  }, [autoPlay, id, playerState.id]);
+  }, [autoPlay, musicId, playerState.id]);
 
   const onPlay = useCallback(() => {
     playerDispatch({
@@ -97,7 +109,7 @@ function MusicPlayer({
         artists,
         autoPlay,
         audioRef,
-        id,
+        musicId,
         nextPlayEvent,
         prevPlayEvent,
         picUrl,
@@ -106,6 +118,7 @@ function MusicPlayer({
         defaultFavourState,
         unLikeEvent,
         addPlaylistEvent,
+        ...props
       }}
     >
       <PlayerContext.Provider value={playerState}>
@@ -125,7 +138,7 @@ function MusicPlayer({
               onCanPlay={onCanplay}
             />
           )}
-          <MusicController />
+          <MusicController {...props} />
         </PlayerDispatchContext.Provider>
       </PlayerContext.Provider>
     </PlayerPropsContext.Provider>
