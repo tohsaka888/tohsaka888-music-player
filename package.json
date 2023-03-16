@@ -76,7 +76,7 @@
     "chromatic": "6.5.3",
     "react-scripts": "5.0.0",
     "typescript": "4.6.2",
-    "webpack": "5.70.0"
+    "webpack": "5.76.0"
   },
   "description": "react music player",
   "main": "lib/commonjs/MusicPlayer.js",
